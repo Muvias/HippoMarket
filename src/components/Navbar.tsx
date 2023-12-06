@@ -3,6 +3,7 @@ import { MaxWidthWapper } from "./MaxWidthWapper";
 import { NavItems } from "./NavItems";
 import { buttonVariants } from "./ui/button";
 import { Cart } from "./Cart";
+import { Icons } from "./Icons";
 
 export function Navbar() {
     const user = null
@@ -17,7 +18,7 @@ export function Navbar() {
 
                             <div className="flex ml-4 lg:ml-0">
                                 <Link href='/'>
-                                    LOGO
+                                    <Icons.logo className="w-10 h-10" />
                                 </Link>
                             </div>
 

@@ -4,6 +4,7 @@ import './globals.css'
 import { cn } from '@/lib/utils'
 import { Navbar } from '@/components/Navbar'
 import Providers from '@/components/Providers'
+import { Toaster } from 'sonner'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -20,6 +21,8 @@ export default function RootLayout({
   return (
     <html lang="pt-br" className='h-full'>
       <body className={cn('relative h-full font-sans antialiased', inter.className)}>
+        <Toaster richColors position='top-center' />
+
         <main className='relative flex flex-col min-h-screen'>
           <Providers>
             <Navbar />

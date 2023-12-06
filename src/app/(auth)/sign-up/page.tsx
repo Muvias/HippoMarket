@@ -6,19 +6,47 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 import { AuthCredentialsValidator, TAuthCredentialsValidator } from "@/lib/validators/AuthCredentialsValidator";
+import { trpc } from "@/trpc/client";
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ArrowRightIcon } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useForm } from 'react-hook-form';
+import { toast } from "sonner";
+import { ZodError } from "zod";
 
 export default function Page() {
     const { register, handleSubmit, formState: { errors } } = useForm<TAuthCredentialsValidator>({
         resolver: zodResolver(AuthCredentialsValidator),
     })
 
+    const router = useRouter()
+
+    const { mutate: createUser, isLoading } = trpc.auth.createPayloadUser.useMutation({
+        onError: (err) => {
+            if (err.data?.code === 'CONFLICT') {
+                toast.error('Este email já está em uso. Entrar ao invés disso?')
+
+                return
+            }
+
+            if (err instanceof ZodError) {
+                toast.error(err.issues[0].message)
+
+                return
+            }
+
+            toast.error('Algo deu errado. Por favor tente novamente.')
+        },
+        onSuccess: ({ sentToEmail }) => {
+            toast.success(`Email de verificação enviado para ${sentToEmail}`)
+
+            router.push('/verify-email?to=' + sentToEmail)
+        }
+    })
 
     function onSubmit({ email, password }: TAuthCredentialsValidator) {
-
+        createUser({ email, password })
     }
 
     return (
@@ -65,7 +93,7 @@ export default function Page() {
                                     />
                                 </div>
 
-                                <Button>Entrar</Button>
+                                <Button>Criar conta</Button>
                             </div>
                         </form>
                     </div>
