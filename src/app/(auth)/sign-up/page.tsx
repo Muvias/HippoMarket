@@ -78,19 +78,27 @@ export default function Page() {
                                             "focus-visible:ring-red-500": errors.email
                                         })}
                                     />
+
+                                    {errors?.email && (
+                                        <p className="text-sm text-red-500">{errors.email.message}</p>
+                                    )}
                                 </div>
 
                                 <div className="grid gap-2 py-2">
                                     <Label htmlFor="password">Senha</Label>
                                     <Input
                                         {...register('password')}
-                                        placeholder="Senha"
+                                        placeholder="********"
                                         type="password"
                                         id="password"
                                         className={cn({
                                             "focus-visible:ring-red-500": errors.password
                                         })}
                                     />
+
+                                    {errors?.password && (
+                                        <p className="text-sm text-red-500">{errors.password.message}</p>
+                                    )}
                                 </div>
 
                                 <Button>Criar conta</Button>

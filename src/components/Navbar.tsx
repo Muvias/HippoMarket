@@ -1,12 +1,16 @@
+import { cookies } from 'next/headers';
 import Link from "next/link";
+import { getServerSideUser } from "../lib/payload-utils";
+import { Cart } from "./Cart";
+import { Icons } from "./Icons";
 import { MaxWidthWapper } from "./MaxWidthWapper";
 import { NavItems } from "./NavItems";
 import { buttonVariants } from "./ui/button";
-import { Cart } from "./Cart";
-import { Icons } from "./Icons";
+import { UserAccountNav } from './UserAccountNav';
 
-export function Navbar() {
-    const user = null
+export async function Navbar() {
+    const nextCookies = cookies()
+    const { user } = await getServerSideUser(nextCookies)
 
     return (
         <div className="sticky top-0 h-16 inset-x-0 bg-white z-50">
@@ -45,7 +49,7 @@ export function Navbar() {
                                     )}
 
                                     {user ? (
-                                        <div></div>
+                                        <UserAccountNav user={user} />
                                     ) : (
                                         <Link
                                             href='/sign-up'
