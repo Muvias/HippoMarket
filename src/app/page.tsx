@@ -1,4 +1,5 @@
 import { MaxWidthWapper } from "@/components/MaxWidthWapper";
+import { ProductReel } from "@/components/ProductReel";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { ArrowDownToLine, CheckCircle, Leaf } from "lucide-react";
 import Link from "next/link";
@@ -48,7 +49,7 @@ export default function Home() {
           </div>
         </div>
 
-        {/* TODO: LIST PRODUCTS */}
+        <ProductReel title="Novinho em folha" href="/products" query={{ sort: 'desc', limit: 4 }} />
       </MaxWidthWapper>
 
       <section className="border-t border-gray-200 bg-gray-50">
