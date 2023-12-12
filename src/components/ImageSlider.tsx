@@ -49,7 +49,7 @@ export function ImageSlider({ urls }: ImageSliderProps) {
                         "hover:bg-primary-300 text-primary-800 opacity-100": !slideConfig.isEnd
                     })}
                 >
-                    <ChevronRight className="h-4 w-4 text-zinc-700" />{' '}
+                    <ChevronRight className="h-4 w-4 text-zinc-800" />{' '}
                 </button>
 
                 <button
@@ -63,7 +63,7 @@ export function ImageSlider({ urls }: ImageSliderProps) {
                         "hover:bg-primary-300 text-primary-800 opacity-100": !slideConfig.isBeginning
                     })}
                 >
-                    <ChevronLeft className="h-4 w-4 text-zinc-700" />
+                    <ChevronLeft className="h-4 w-4 text-zinc-800" />
                 </button>
             </div>
 
@@ -86,6 +86,7 @@ export function ImageSlider({ urls }: ImageSliderProps) {
                             alt="Imagem do Produto"
                             loading="eager"
                             fill
+                            sizes="(max-width: 1024px) 90vw, 35vw"
                             className="object-cover object-center h-full w-full -z-10"
                         />
                     </SwiperSlide>

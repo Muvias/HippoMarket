@@ -1,18 +1,30 @@
 'use client'
 
-import { ShoppingCartIcon } from "lucide-react"
-import { Sheet, SheetContent, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "./ui/sheet"
-import { Separator } from "./ui/separator"
+import { useCart } from "@/hooks/use-cart"
 import { formatPrice } from "@/lib/utils"
+import { ShoppingCartIcon } from "lucide-react"
+import Image from "next/image"
 import Link from "next/link"
 import { buttonVariants } from "./ui/button"
-import Image from "next/image"
+import { Separator } from "./ui/separator"
+import { Sheet, SheetContent, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "./ui/sheet"
+import { CartItem } from "./CartItem"
+import { ScrollArea } from "./ui/scroll-area"
+import { useEffect, useState } from "react"
 
-interface CartProps { }
+export function Cart() {
+    const { items } = useCart()
 
-export function Cart({ }: CartProps) {
-    const itemCount = 0
+    const [isMounted, setIsMounted] = useState(false)
+
+    const itemCount = items.length
+    const cartTotal = items.reduce((total, { product }) => total + product.price, 0)
     const fee = 4
+
+    useEffect(() => {
+        setIsMounted(true)
+    }, [])
+
 
     return (
         <Sheet>
@@ -23,19 +35,23 @@ export function Cart({ }: CartProps) {
                 />
 
                 <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">
-                    0
+                    {isMounted ? itemCount : 0}
                 </span>
             </SheetTrigger>
 
             <SheetContent className="flex flex-col w-full sm:max-w-lg pr-0">
                 <SheetHeader className="space-y-2.5 pr-6">
-                    <SheetTitle>Carrinho (0)</SheetTitle>
+                    <SheetTitle>Carrinho ({isMounted ? itemCount : 0})</SheetTitle>
                 </SheetHeader>
 
                 {itemCount > 0 ? (
                     <>
                         <div className="flex flex-col w-full pr-6">
-                            cart items
+                            <ScrollArea>
+                                {items.map(({ product }) => (
+                                    <CartItem key={product.id} product={product} />
+                                ))}
+                            </ScrollArea>
                         </div>
                         <div className="space-y-4 pr-6">
                             <Separator />
@@ -51,7 +67,7 @@ export function Cart({ }: CartProps) {
                                 </div>
                                 <div className="flex">
                                     <span className="flex-1">Total</span>
-                                    <span>{formatPrice(fee)}</span>
+                                    <span>{formatPrice(cartTotal + fee)}</span>
                                 </div>
                             </div>
 

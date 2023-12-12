@@ -1,9 +1,11 @@
+import { AddToCartButton } from "@/components/AddToCartButton"
 import { ImageSlider } from "@/components/ImageSlider"
 import { MaxWidthWapper } from "@/components/MaxWidthWapper"
+import { ProductReel } from "@/components/ProductReel"
 import { PRODUCT_CATEGORIES } from "@/config"
 import { getPayloadClient } from "@/get-payload"
 import { formatPrice } from "@/lib/utils"
-import { CheckIcon } from "lucide-react"
+import { CheckIcon, Shield } from "lucide-react"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 
@@ -97,13 +99,32 @@ export default async function Page({ params }: pageProps) {
                         </section>
                     </div>
 
-                    <div className="mt-10 lg:mt-0 lg:self-center lg:col-start-2 lg:row-start-2">
+                    <div className="mt-10 lg:mt-0 lg:self-center lg:col-start-2 lg:row-span-2">
                         <div className="rounded-lg aspect-square">
                             <ImageSlider urls={validUrls} />
                         </div>
                     </div>
+
+                    <div className="lg:max-w-lg mt-10 lg:self-start lg:col-start-1 lg:row-start-2">
+                        <div className="mt-10">
+                            <AddToCartButton product={product} />
+                        </div>
+
+                        <div className="mt-6 text-center">
+                            <div className="group inline-flex text-sm font-medium">
+                                <Shield aria-hidden={true} className="flex-shrink-0 h-5 w-5 mr-2 text-gray-400" />
+                                <span className="text-muted-foreground hover:text-gray-700">30 dias garantidos para devolução</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+
+            <ProductReel
+                href="/products"
+                query={{ category: product.category, limit: 4 }}
+                title={`Similares a ${label}`}
+            />
         </MaxWidthWapper>
     )
 }
