@@ -19,7 +19,7 @@ export function Cart() {
 
     const itemCount = items.length
     const cartTotal = items.reduce((total, { product }) => total + product.price, 0)
-    const fee = 4
+    const fee = 2
 
     useEffect(() => {
         setIsMounted(true)
@@ -74,7 +74,7 @@ export function Cart() {
                             <SheetFooter>
                                 <SheetTrigger asChild>
                                     <Link href='/cart' className={buttonVariants({ className: 'w-full' })}>
-                                        Continuar para pagar
+                                        Continuar para finalizar compra
                                     </Link>
                                 </SheetTrigger>
                             </SheetFooter>

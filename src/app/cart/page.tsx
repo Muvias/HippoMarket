@@ -4,17 +4,30 @@ import { Button } from "@/components/ui/button";
 import { PRODUCT_CATEGORIES } from "@/config";
 import { useCart } from "@/hooks/use-cart";
 import { cn, formatPrice } from "@/lib/utils";
-import { CheckIcon, X } from "lucide-react";
+import { trpc } from "@/trpc/client";
+import { CheckIcon, Loader2, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
-interface PageProps { }
-
-export default function Page({ }: PageProps) {
+export default function Page() {
     const { items, removeItem } = useCart()
 
+    const router = useRouter()
+
+    const { mutate: createCheckoutSession, isLoading } = trpc.payment.createSession.useMutation({
+        onSuccess: ({ url }) => {
+            if (url) router.push(url)
+        },
+    })
+
+    const productIds = items.map(({ product }) => product.id)
+
     const [isMounted, setIsMounted] = useState(false)
+
+    const cartTotal = items.reduce((total, { product }) => total + product.price, 0)
+    const fee = 2
 
     useEffect(() => {
         setIsMounted(true)
@@ -128,8 +141,65 @@ export default function Page({ }: PageProps) {
                             })}
                         </ul>
                     </div>
+
+                    <section className="px-4 py-6 sm:p-6 lg:p-8 mt-16 lg:mt-0 lg:col-span-5 rounded-lg bg-gray-50">
+                        <h2 className="text-lg font-medium text-gray-900">Resumo do pedido</h2>
+
+                        <div className="mt-6 space-y-4">
+                            <div className="flex items-center justify-between">
+                                <p className="text-sm text-gray-600">Subtotal</p>
+                                <p className="text-sm font-medium text-gray-900">
+                                    {isMounted ? (
+                                        formatPrice(cartTotal)
+                                    ) : (
+                                        <Loader2 className="h-4 w-4 animate-spin text-muted-foreground" />
+                                    )}
+                                </p>
+                            </div>
+
+                            <div className="flex items-center justify-between">
+                                <div className="flex items-center text-sm text-muted-foreground">
+                                    <span>Taxa fixa de transação</span>
+                                </div>
+
+                                <div className="text-sm font-medium text-gray-900">
+                                    {isMounted ? (
+                                        formatPrice(fee)
+                                    ) : (
+                                        <Loader2 className="h-4 w-4 animate-spin text-muted-foreground" />
+                                    )}
+                                </div>
+                            </div>
+
+                            <div className="flex items-center justify-between pt-4 border-t border-gray-200">
+                                <div className="text-base font-medium text-gray-900">Total</div>
+
+                                <div className="text-base font-medium text-gray-900">
+                                    {isMounted ? (
+                                        formatPrice(cartTotal + fee)
+                                    ) : (
+                                        <Loader2 className="h-4 w-4 animate-spin text-muted-foreground" />
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="mt-6">
+                            <Button
+                                className="w-full"
+                                size='lg'
+                                disabled={items.length === 0 || isLoading}
+                                onClick={() => createCheckoutSession({ productIds })}
+                            >
+                                {isLoading ? (
+                                    <Loader2 className="h-4 w-4 mr-1 animate-spin" />
+                                ) : null}
+                                Finalizar compra
+                            </Button>
+                        </div>
+                    </section>
                 </div>
-            </div>
-        </div>
+            </div >
+        </div >
     )
 }
