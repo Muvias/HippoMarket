@@ -10,7 +10,7 @@ const nextConfig = {
             },
             {
                 protocol: 'https',
-                hostname: "https://hippomarket-2pb0yka2j-muvias.vercel.app"
+                hostname: "https://hippomarket-production.up.railway.app"
             }
         ]
     }

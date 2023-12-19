@@ -60,7 +60,7 @@ export default function Page() {
 
                     <Link href='/sign-in' className={buttonVariants({ variant: 'link', className: 'gap-1.5 w-fit mx-auto px-0' })}>
                         Já tem uma conta? Entrar
-                        <ArrowRightIcon className="w-4 h-4" />
+                        <ArrowRightIcon className="w-4 h-4 shrink-0" />
                     </Link>
 
                     <div className="grid gap-6">

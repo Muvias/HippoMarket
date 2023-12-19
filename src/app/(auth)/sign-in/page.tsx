@@ -67,7 +67,7 @@ export default function Page() {
 
                     <Link href='/sign-up' className={buttonVariants({ variant: 'link', className: 'gap-1.5 w-fit mx-auto px-0' })}>
                         Ainda não tem uma conta? Cadastre-se
-                        <ArrowRightIcon className="w-4 h-4" />
+                        <ArrowRightIcon className="w-4 h-4 shrink-0" />
                     </Link>
 
                     <div className="grid gap-6">

@@ -81,7 +81,7 @@ export function Cart() {
                         </div>
                     </>
                 ) : (
-                    <div className="flex flex-col items-center justify-center h-full space-y-1">
+                    <div className="flex flex-col items-center justify-center h-full space-y-2">
                         <div
                             aria-hidden='true'
                             className="relative mb-4 w-60 h-60 text-muted-foreground"
@@ -99,7 +99,7 @@ export function Cart() {
                         </div>
 
                         <SheetTrigger asChild>
-                            <Link href='/products' className={buttonVariants({ variant: 'link', size: 'sm', className: 'text-muted-foreground' })}>
+                            <Link href='/products' className={buttonVariants({ variant: 'link', size: 'sm', className: 'text-muted-foreground text-center' })}>
                                 Adicione produtos ao carrinho para prosseguir com a compra.
                             </Link>
                         </SheetTrigger>

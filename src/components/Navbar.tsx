@@ -5,8 +5,9 @@ import { Cart } from "./Cart";
 import { Icons } from "./Icons";
 import { MaxWidthWapper } from "./MaxWidthWapper";
 import { NavItems } from "./NavItems";
-import { buttonVariants } from "./ui/button";
 import { UserAccountNav } from './UserAccountNav';
+import { buttonVariants } from "./ui/button";
+import { MobileNav } from './MobileNav';
 
 export async function Navbar() {
     const nextCookies = cookies()
@@ -18,7 +19,7 @@ export async function Navbar() {
                 <MaxWidthWapper>
                     <div className="border-b border-gray-200">
                         <div className="flex items-center h-16">
-                            {/* MOBILE */}
+                            <MobileNav />
 
                             <div className="flex ml-4 lg:ml-0">
                                 <Link href='/'>
@@ -76,10 +77,10 @@ export async function Navbar() {
                                             />
                                         </div>
                                     )}
+                                </div>
 
-                                    <div className="flow-root ml-4 lg:ml-6">
-                                        <Cart />
-                                    </div>
+                                <div className="flow-root ml-4 lg:ml-6">
+                                    <Cart />
                                 </div>
                             </div>
                         </div>
