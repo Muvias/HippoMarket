@@ -50,11 +50,10 @@ export async function MobileNav() {
 
                                 <div className='grid grid-cols-2 gap-y-4 gap-x-4'>
                                     {category.featured.map((item) => (
-                                        <SheetTrigger asChild>
+                                        <SheetTrigger asChild key={item.name}>
                                             <Link
                                                 href={item.href}
                                                 className='mt-6 block font-medium text-gray-900'
-                                                key={item.name}
                                             >
                                                 <div
                                                     className='group relative text-sm'>
