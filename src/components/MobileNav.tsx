@@ -50,28 +50,30 @@ export async function MobileNav() {
 
                                 <div className='grid grid-cols-2 gap-y-4 gap-x-4'>
                                     {category.featured.map((item) => (
-                                        <Link
-                                            href={item.href}
-                                            className='mt-6 block font-medium text-gray-900'
-                                            key={item.name}
-                                        >
-                                            <div
-                                                className='group relative text-sm'>
-                                                <div className='relative aspect-square overflow-hidden rounded-lg bg-gray-100 group-hover:opacity-75'>
-                                                    <Image
-                                                        src={item.imageSrc}
-                                                        alt='Imagem da categoria do produto'
-                                                        fill
-                                                        sizes="(max-width: 400px) 40vw, (max-width: 640px) 30vw, 20vw"
-                                                        className='object-cover object-center'
-                                                    />
-                                                </div>
+                                        <SheetTrigger asChild>
+                                            <Link
+                                                href={item.href}
+                                                className='mt-6 block font-medium text-gray-900'
+                                                key={item.name}
+                                            >
+                                                <div
+                                                    className='group relative text-sm'>
+                                                    <div className='relative aspect-square overflow-hidden rounded-lg bg-gray-100 group-hover:opacity-75'>
+                                                        <Image
+                                                            src={item.imageSrc}
+                                                            alt='Imagem da categoria do produto'
+                                                            fill
+                                                            sizes="(max-width: 400px) 40vw, (max-width: 640px) 30vw, 20vw"
+                                                            className='object-cover object-center'
+                                                        />
+                                                    </div>
 
-                                                <p className="mt-2">
-                                                    {item.name}
-                                                </p>
-                                            </div>
-                                        </Link>
+                                                    <p className="mt-2">
+                                                        {item.name}
+                                                    </p>
+                                                </div>
+                                            </Link>
+                                        </SheetTrigger>
                                     ))}
                                 </div>
                             </li>

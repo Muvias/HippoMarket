@@ -133,7 +133,7 @@ export default function Page() {
                                             <p className="flex mt-4 text-sm space-x-2 text-gray-700">
                                                 <CheckIcon className="w-5 h-5 flex-shrink-0 text-green-500" />
 
-                                                <span>Eligível para entrega imediata</span>
+                                                <span>Elegível para entrega imediata</span>
                                             </p>
                                         </div>
                                     </li>
