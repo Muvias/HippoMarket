@@ -1,5 +1,6 @@
 'use client'
 
+import { useCart } from "@/hooks/use-cart"
 import { trpc } from "@/trpc/client"
 import { useRouter } from "next/navigation"
 import { useEffect } from "react"
@@ -17,10 +18,14 @@ export function PaymentStatus({ orderEmail, orderId, isPaid }: PaymentStatusProp
     })
 
     const router = useRouter()
+    const { clearCart } = useCart()
 
     useEffect(() => {
-        if (data?.isPaid) router.refresh()
-    }, [data?.isPaid, router])
+        if (data?.isPaid) {
+            clearCart()
+            router.refresh()
+        }
+    }, [data?.isPaid, router, clearCart])
 
 
     return (

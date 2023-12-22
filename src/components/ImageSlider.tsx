@@ -1,14 +1,14 @@
 'use client'
 
+import { cn } from "@/lib/utils"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 import Image from "next/image"
 import { useEffect, useState } from "react"
+import type SwiperType from 'swiper'
 import "swiper/css"
 import "swiper/css/pagination"
-import type SwiperType from 'swiper'
-import { Swiper, SwiperSlide } from 'swiper/react'
 import { Pagination } from 'swiper/modules'
-import { cn } from "@/lib/utils"
+import { Swiper, SwiperSlide } from 'swiper/react'
 
 interface ImageSliderProps {
     urls: string[]
@@ -80,14 +80,14 @@ export function ImageSlider({ urls }: ImageSliderProps) {
                 spaceBetween={50}
             >
                 {urls.map((url, index) => (
-                    <SwiperSlide key={index} className="relative w-full h-full -z-10">
+                    <SwiperSlide key={index} className="relative w-full h-full">
                         <Image
                             src={url}
                             alt="Imagem do Produto"
                             loading="eager"
                             fill
                             sizes="(max-width: 1024px) 90vw, 35vw"
-                            className="object-cover object-center h-full w-full -z-10"
+                            className="object-cover object-center h-full w-full"
                         />
                     </SwiperSlide>
                 ))}
