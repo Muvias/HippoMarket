@@ -18,14 +18,10 @@ export function PaymentStatus({ orderEmail, orderId, isPaid }: PaymentStatusProp
     })
 
     const router = useRouter()
-    const { clearCart } = useCart()
 
     useEffect(() => {
-        if (data?.isPaid) {
-            clearCart()
-            router.refresh()
-        }
-    }, [data?.isPaid, router, clearCart])
+        if (data?.isPaid) router.refresh()
+    }, [data?.isPaid, router])
 
 
     return (
