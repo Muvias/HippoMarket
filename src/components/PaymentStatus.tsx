@@ -12,6 +12,8 @@ interface PaymentStatusProps {
 }
 
 export function PaymentStatus({ orderEmail, orderId, isPaid }: PaymentStatusProps) {
+    const { items, clearCart } = useCart()
+
     const { data } = trpc.payment.pollOrderStatus.useQuery({ orderId }, {
         enabled: isPaid === false,
         refetchInterval: (data) => (data?.isPaid ? false : 1000)
@@ -23,6 +25,11 @@ export function PaymentStatus({ orderEmail, orderId, isPaid }: PaymentStatusProp
         if (data?.isPaid) router.refresh()
     }, [data?.isPaid, router])
 
+    if (isPaid) {
+        if (items.length !== 0) {
+            clearCart()
+        }
+    }
 
     return (
         <div className="grid grid-cols-2 gap-x-4 mt-16 text-sm text-gray-600">

@@ -13,7 +13,6 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useForm } from 'react-hook-form';
 import { toast } from "sonner";
-import { ZodError } from "zod";
 
 export default function Page() {
     const searchParams = useSearchParams()
@@ -31,7 +30,8 @@ export default function Page() {
 
             if (origin) {
                 router.push(`/${origin}`)
-
+                
+                router.refresh()
                 return
             }
 
