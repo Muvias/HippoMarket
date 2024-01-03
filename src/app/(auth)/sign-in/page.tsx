@@ -31,7 +31,7 @@ export default function Page() {
             if (origin) {
                 router.push(`/${origin}`)
                 
-                router.refresh()
+                window.location.reload()
                 return
             }
 

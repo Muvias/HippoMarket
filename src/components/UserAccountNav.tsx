@@ -39,6 +39,12 @@ export function UserAccountNav({ user }: UserAccountNavProps) {
                         Página de Vendedor
                     </Link>
                 </DropdownMenuItem>
+                
+                <DropdownMenuItem asChild className="cursor-pointer">
+                    <Link href='/orders'>
+                        Minhas Compras
+                    </Link>
+                </DropdownMenuItem>
 
                 <DropdownMenuItem className="cursor-pointer" onClick={signOut}>
                     Sair
