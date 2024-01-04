@@ -15,19 +15,20 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
+import { Product } from "@/payload-type"
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]
     data: TData[]
-    downloadUrl: string
-    productName: string
+    downloadUrls: string[]
+    products: Product[]
 }
 
 export function DataTable<TData, TValue>({
     columns,
     data,
-    downloadUrl,
-    productName
+    downloadUrls,
+    products
 }: DataTableProps<TData, TValue>) {
     const table = useReactTable({
         data,
@@ -61,7 +62,7 @@ export function DataTable<TData, TValue>({
                 </TableHeader>
                 <TableBody>
                     {table.getRowModel().rows?.length ? (
-                        table.getRowModel().rows.map((row) => (
+                        table.getRowModel().rows.map((row, index) => (
                             <TableRow
                                 key={row.id}
                                 data-state={row.getIsSelected() && "selected"}
@@ -74,8 +75,8 @@ export function DataTable<TData, TValue>({
 
                                 <TableCell>
                                     <a
-                                        href={downloadUrl}
-                                        download={productName}
+                                        href={downloadUrls[index]}
+                                        download={products[index].name}
                                         className="text-blue-600 hover:underline underline-offset-2"
                                     >Baixar</a>
                                 </TableCell>

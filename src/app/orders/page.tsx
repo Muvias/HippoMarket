@@ -19,7 +19,6 @@ export default async function Page({ }: pageProps) {
 
     const { docs: orders } = await payload.find({
         collection: 'orders',
-        depth: 2,
         where: {
             user: {
                 equals: user.id,
@@ -39,20 +38,22 @@ export default async function Page({ }: pageProps) {
 
     if (orderUserId !== user.id) return redirect('/sign-in?origin=orders')
 
-    const products = order.products.map((product) => product) as Product[]
+    const products = orders.map(({ products }) => products as Product[])
+    const flattenedProducts: Product[] = products.reduce((acc, curr) => acc.concat(curr), []);
+
+    const downloadUrls = flattenedProducts.map((product) => (product.product_files as ProductFile).url as string)
 
     return (
         <MaxWidthWapper>
             <div>
-                {products.map((product) => {
-                    const downloadUrl = (product.product_files as ProductFile).url as string
-
-                    return (
-                        <div className="container mx-auto py-10" key={product.id}>
-                            <DataTable columns={columns} data={products} downloadUrl={downloadUrl} productName={product.name} />
-                        </div>
-                    )
-                })}
+                <div className="container mx-auto py-10">
+                    <DataTable
+                        columns={columns}
+                        data={flattenedProducts}
+                        downloadUrls={downloadUrls}
+                        products={flattenedProducts}
+                    />
+                </div>
             </div>
         </MaxWidthWapper>
     )
