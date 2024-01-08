@@ -16,7 +16,7 @@ export function AddToCartButton({ product }: AddToCartButtonProps) {
     useEffect(() => {
         const timeout = setTimeout(() => {
             setIsSuccess(false)
-        }, 1000)
+        }, 10000)
 
         return () => clearTimeout(timeout)
     }, [isSuccess])
